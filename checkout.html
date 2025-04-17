@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit Payment Proof</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1d4ed8;
+      --primary-dark: #1e40af;
+      --accent: #f59e0b;
+      --success: #25D366;
+      --bg: #f3f4f6;
+      --surface: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --radius: 0.75rem;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+    body { background: var(--bg); display: flex; align-items: center; justify-content: center; padding: 1rem; min-height: 100vh; color: var(--text); }
+    .card { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); width: 100%; max-width: 480px; overflow: hidden; }
+    .card-header { background: var(--primary); color: white; padding: 1.25rem; text-align: center; font-size: 1.5rem; font-weight: 700; }
+    .card-body { padding: 1.5rem; }
+    .section { margin-bottom: 1.25rem; }
+    .section h2 { font-size: 1.25rem; color: var(--primary-dark); margin-bottom: 0.75rem; }
+    .price-list { list-style: none; margin-bottom: 1rem; }
+    .price-list li { display: flex; justify-content: space-between; padding: 0.5rem 0; }
+    .price-list li.total { font-weight: 600; border-top: 1px solid #e5e7eb; padding-top: 0.75rem; margin-top: 0.5rem; }
+    .form-group { margin-bottom: 1rem; position: relative; }
+    .form-group label { display: block; margin-bottom: 0.25rem; font-weight: 600; }
+    .form-group input { width: 100%; padding: 0.5rem; border: 1px solid #d1d5db; border-radius: var(--radius); transition: var(--transition); }
+    .form-group input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.2); }
+    .methods { display: grid; gap: 1rem; grid-template-columns: 1fr 1fr; margin-bottom: 1rem; }
+    .method { background: var(--bg); padding: 1rem; border-radius: var(--radius); box-shadow: inset 0 0 0 1px #e5e7eb; transition: var(--transition); }
+    .method:hover { box-shadow: var(--shadow); }
+    .method-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
+    .method-icon { background: var(--primary); color: white; width: 2rem; height: 2rem; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; }
+    .method-number { font-family: monospace; margin-bottom: 0.5rem; color: var(--text); }
+    .copy-btn { width: 100%; padding: 0.5rem; background: var(--primary); color: white; border: none; border-radius: var(--radius); cursor: pointer; transition: var(--transition); font-size: 0.9rem; }
+    .copy-btn:hover { background: var(--primary-dark); }
+    .actions { display: flex; gap: 0.75rem; margin-top: 1rem; }
+    .btn { flex: 1; padding: 0.75rem; text-align: center; border: none; border-radius: var(--radius); font-weight: 600; cursor: pointer; transition: var(--transition); color: white; font-size: 1rem; }
+    .btn-email { background: var(--accent); }
+    .btn-email:hover { background: #d97706; }
+    .btn-wa { background: var(--success); }
+    .btn-wa:hover { background: #128C7E; }
+    .note { font-size: 0.875rem; color: var(--muted); text-align: center; margin-top: 1rem; }
+    .required:after { content: " *"; color: #dc2626; }
+    .error { color: #dc2626; font-size: 0.75rem; margin-top: 0.25rem; }
+    .error-border { border-color: #dc2626 !important; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="card-header">Review & Submit Your Details</div>
+    <div class="card-body">
+      <div class="section">
+        <h2>Order Summary</h2>
+        <ul class="price-list">
+          <li><span>Original Price</span><span><s>PKR 20,000</s></span></li>
+          <li><span>Discount (92%)</span><span style="color:#dc2626;">-PKR 18,500</span></li>
+          <li class="total"><span>Total Due</span><span>PKR 1,500</span></li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>Your Contact Info</h2>
+        <div class="form-group">
+          <label for="name" class="required">Full Name</label>
+          <input type="text" id="name" placeholder="Jane Doe" required>
+        </div>
+        <div class="form-group">
+          <label for="email" class="required">Email</label>
+          <input type="email" id="email" placeholder="you@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="phone" class="required">Phone</label>
+          <input type="tel" id="phone" placeholder="0300-1234567" required>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Choose Payment Method</h2>
+        <div class="methods">
+          <div class="method" data-num="03072981397">
+            <div class="method-header">
+              <div class="method-icon"><i class="fas fa-wallet"></i></div>
+              <div>EasyPaisa</div>
+            </div>
+            <div class="method-number">0307-2981397</div>
+            <button class="copy-btn">Copy Number</button>
+          </div>
+          <div class="method" data-num="03072981397">
+            <div class="method-header">
+              <div class="method-icon"><i class="fas fa-wallet"></i></div>
+              <div>JazzCash</div>
+            </div>
+            <div class="method-number">0307-2981397</div>
+            <button class="copy-btn">Copy Number</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-email" id="email-btn"><i class="fas fa-envelope"></i> Email</button>
+        <button class="btn btn-wa" id="wa-btn"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+      </div>
+      <div class="note">After clicking, please attach your payment screenshot in the chat or email.</div>
+    </div>
+  </div>
+
+  <script>
+    // Copy payment number
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const num = btn.closest('.method').dataset.num;
+        navigator.clipboard.writeText(num).then(() => {
+          btn.textContent = 'Copied!';
+          setTimeout(() => btn.textContent = 'Copy Number', 2000);
+        }).catch(err => {
+          console.error('Failed to copy: ', err);
+          alert('Failed to copy. Please manually select and copy the number.');
+        });
+      });
+    });
+
+    // WhatsApp button
+    document.getElementById('wa-btn').addEventListener('click', () => {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      
+      if (!validateForm()) return;
+      
+      const message = `Payment Confirmation:
+Name: ${name}
+Email: ${email}
+Phone: ${phone}
+Amount: PKR 1,500
+
+I've made the payment and will send the screenshot shortly.`;
+      
+      window.open(`https://api.whatsapp.com/send?phone=923262927226&text=${encodeURIComponent(message)}`, '_blank');
+    });
+
+    // Email button - Fixed version
+    document.getElementById('email-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      if (!validateForm()) return;
+      
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      
+      const subject = 'Payment Confirmation - PKR 1,500';
+      const body = `Dear Support Team,\n\nPayment Details:\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nAmount: PKR 1,500\n\nPlease find the payment proof attached.\n\nRegards,\n${name}`;
+      
+      // Create temporary link to handle mailto
+      const mailtoLink = `mailto:dashingkiller24@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      
+      // For mobile devices
+      if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        window.location.href = mailtoLink;
+      } 
+      // For desktop with fallback
+      else {
+        const mailWindow = window.open(mailtoLink, '_blank');
+        if (!mailWindow || mailWindow.closed) {
+          alert('Please allow pop-ups or manually email us at support@yourdomain.com');
+        }
+      }
+
+    });
+
+    // Form validation
+    function validateForm() {
+      let isValid = true;
+      clearErrors();
+      
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      
+      if (!name) {
+        showError('name', 'Name is required');
+        isValid = false;
+      }
+      
+      if (!email) {
+        showError('email', 'Email is required');
+        isValid = false;
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showError('email', 'Invalid email format');
+        isValid = false;
+      }
+      
+      if (!phone) {
+        showError('phone', 'Phone is required');
+        isValid = false;
+      } else if (!/^\d+$/.test(phone.replace(/\D/g, ''))) {
+        showError('phone', 'Invalid phone number');
+        isValid = false;
+      }
+      
+      return isValid;
+    }
+    
+    function showError(fieldId, message) {
+      const field = document.getElementById(fieldId);
+      field.classList.add('error-border');
+      const errorElement = document.createElement('div');
+      errorElement.className = 'error';
+      errorElement.textContent = message;
+      field.parentNode.appendChild(errorElement);
+    }
+    
+    function clearErrors() {
+      document.querySelectorAll('.error').forEach(el => el.remove());
+      document.querySelectorAll('.error-border').forEach(el => el.classList.remove('error-border'));
+    }
+  </script>
+</body>
+</html>
